@@ -34,3 +34,4 @@ Reports are automatically generated as a part of TestNG framework and it can be 
  - POJO Classes : `/main/java/datamodel`
  - API Method List : `/main/java/core/APIMethods`
  - Data Source : `/test/java/data`
+ - Environments : `/test/java/core/Environments`
