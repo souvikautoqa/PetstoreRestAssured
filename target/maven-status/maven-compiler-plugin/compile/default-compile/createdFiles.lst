@@ -1,0 +1,15 @@
+core/APIMethods.class
+datamodel/Tag.class
+datamodel/Category.class
+core/HttpMethod.class
+core/Environments.class
+core/Config.class
+datamodel/Pet.class
+core/Data.class
+core/RestSession.class
+core/Data$1.class
+core/RestSession$1.class
+core/APIMethod.class
+core/ParametersType.class
+core/EndPoint.class
+core/Config$1.class
