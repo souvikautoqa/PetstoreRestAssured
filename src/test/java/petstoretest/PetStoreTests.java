@@ -8,19 +8,6 @@ import java.util.Map;
 
 public class PetStoreTests extends BaseLibrary {
 
-
-//    1. Create and return a new Pet with:
-    //    a. Id
-    //    b. Category_name
-    //    c. Pet_name
-    //    d. Status
-    //    e. tagName
-    //    f. photoUrl
-//    2. Verify the Pet was created with correct data.
-//    3. Update this Pet_name, Verify update and return record.
-//    4. Delete the Pet and demonstrate pet now deleted.
-
-
     @Test(priority = 1)
     public void verifyPetsCreated() throws Exception {
         Assert.assertEquals(getPet( Integer.parseInt((String) getPetData().get("monkey").get("id"))).statusCode(),200);
