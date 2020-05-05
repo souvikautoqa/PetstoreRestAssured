@@ -8,6 +8,10 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
+
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,5 +83,16 @@ public class BaseLibrary {
         pet.setStatus((String) data.get("status"));
         return pet;
     }
+
+    public int getURLResponse(String URL) throws Exception {
+        URL url = new URL(URL);
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.connect();
+        int code = conn.getResponseCode();
+        return code;
+    }
+
+
 
 }

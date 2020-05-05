@@ -24,8 +24,11 @@ public class PetStoreTests extends BaseLibrary {
     @Test(priority = 1)
     public void verifyPetsCreated() throws Exception {
         Assert.assertEquals(getPet( Integer.parseInt((String) getPetData().get("monkey").get("id"))).statusCode(),200);
+        Assert.assertEquals(getURLResponse((String) getPetData().get("monkey").get("photo")),200);
         Assert.assertEquals(getPet( Integer.parseInt((String) getPetData().get("cat").get("id"))).statusCode(),200);
+        Assert.assertEquals(getURLResponse((String) getPetData().get("cat").get("photo")),200);
         Assert.assertEquals(getPet( Integer.parseInt((String) getPetData().get("dog").get("id"))).statusCode(),200);
+        Assert.assertEquals(getURLResponse((String) getPetData().get("dog").get("photo")),200);
     }
 
     @Test(priority = 2)
