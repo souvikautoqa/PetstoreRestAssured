@@ -50,7 +50,7 @@
                 <configuration>
                     <!-- Suite testng xml file to consider for test execution -->
                     <environmentVariables>
-                        <env>${env}</env>
+                        <env>int</env>
                     </environmentVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>TestRunner.xml</suiteXmlFile>
