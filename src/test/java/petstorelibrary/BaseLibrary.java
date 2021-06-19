@@ -4,33 +4,30 @@ import core.*;
 import datamodel.Category;
 import datamodel.Pet;
 import datamodel.Tag;
+import datamodel.User;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BaseLibrary {
 
     private RestSession session;
-    private static HashMap<String,Map> petData;
+    private static HashMap<String,Map> testData;
 
     @BeforeTest
     public void initTest() throws Exception {
         Environments.load();
-        petData =  Data.getData();
+        testData =  Data.getData();
     }
 
-    @BeforeClass
     public void createPets() throws Exception {
-        for (Map.Entry petdata : getPetData().entrySet()){
+        for (Map.Entry petdata : getPetData().entrySet()){   
              Map data = (Map)(petdata.getValue());
              session = new RestSession();
              Response resp = session.sendRequest(APIMethods.CREATE_PET,getPetBody(data), Config.petStoreUserKey);
@@ -38,8 +35,49 @@ public class BaseLibrary {
         }
     }
 
+    public void createUsers() throws Exception {
+        for (Map.Entry userdata : getUsersData().entrySet()){
+            Map data = (Map)(userdata.getValue());
+            session = new RestSession();
+            Response resp = session.sendRequest(APIMethods.CREATE_USER,getUserBody(data), Config.petStoreUserKey);
+            Assert.assertEquals(resp.getStatusCode(),200);
+            Assert.assertEquals(resp.body().jsonPath().get("message"), data.get("id"));
+        }
+    }
+
+    public void loginUsers() throws Exception {
+        for (Map.Entry userdata : getUsersData().entrySet()){
+            Map data = (Map)(userdata.getValue());
+            session = new RestSession();
+            Map<String,String> userCreds = new HashMap<>();
+            userCreds.put("username",(String) data.get("username"));
+            userCreds.put("password",(String) data.get("password"));
+            Response resp = session.sendRequest(APIMethods.LOGIN_USER,userCreds, Config.petStoreUserKey);
+            Assert.assertEquals(resp.getStatusCode(),200);
+            Assert.assertEquals(resp.body().jsonPath().get("message").toString().contains("logged in user session"), true);
+        }
+    }
+
+    public List<Integer> getPugDogs() throws Exception {
+        List<Integer> dogIds = new ArrayList<>();
+        Map<String,String> status = new HashMap<>();
+        status.put("status","available");
+        session = new RestSession();
+        Response resp = session.sendRequest(APIMethods.GET_PET_BY_STATUS,status, Config.petStoreUserKey);
+
+        JsonPath jsonPath =  resp.getBody().jsonPath();
+        List<Object> pugs = jsonPath.getList("", Object.class);
+
+        System.out.println();
+        return  null;
+    }
+
     public HashMap<String, Map> getPetData(){
-        return petData;
+        return (HashMap) testData.get("pet");
+    }
+
+    public HashMap<String, Map> getUsersData(){
+        return (HashMap) testData.get("users");
     }
 
     public Response getPet(int id) throws Exception {
@@ -84,6 +122,20 @@ public class BaseLibrary {
         return pet;
     }
 
+    private User getUserBody(Map data){
+        User user = new User();
+        user.setId(Integer.parseInt((String) data.get("id")));
+        user.setUsername((String) data.get("username"));
+        user.setFirstName((String) data.get("firstName"));
+        user.setLastName((String) data.get("lastName"));
+        user.setEmail((String) data.get("email"));
+        user.setPassword((String) data.get("password"));
+        user.setPhone((String) data.get("phone"));
+        user.setUserStatus(Integer.parseInt((String) data.get("userStatus")));
+
+        return user;
+    }
+
     public int getURLResponse(String URL) throws Exception {
         URL url = new URL(URL);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -92,7 +144,5 @@ public class BaseLibrary {
         int code = conn.getResponseCode();
         return code;
     }
-
-
 
 }

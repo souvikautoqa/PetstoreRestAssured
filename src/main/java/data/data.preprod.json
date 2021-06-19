@@ -30,5 +30,37 @@
       "tagName": "capuchin",
       "status": "available"
     }
+  },
+  "users": {
+    "user1": {
+      "id": 130001,
+      "username": "souvikQA123",
+      "firstName": "souvik",
+      "lastName": "dutta",
+      "email": "souvik@gmail.com",
+      "password": "12345",
+      "phone": "232323232323",
+      "userStatus": 0
+    },
+    "user2": {
+      "id": 130002,
+      "username": "souvikQA1234",
+      "firstName": "souvik",
+      "lastName": "dutta",
+      "email": "souvik1@gmail.com",
+      "password": "12345",
+      "phone": "232323232323",
+      "userStatus": 0
+    },
+    "user3": {
+      "id": 130003,
+      "username": "souvikQA12345",
+      "firstName": "souvik",
+      "lastName": "dutta",
+      "email": "souvik2@gmail.com",
+      "password": "12345",
+      "phone": "232323232323",
+      "userStatus": 0
+    }
   }
 }

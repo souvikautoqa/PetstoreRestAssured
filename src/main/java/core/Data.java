@@ -22,6 +22,6 @@ public class Data {
         reader = new FileReader(path+"/data."+ENV.toLowerCase()+".json");
         gson = new Gson();
         Map data = gson.fromJson(reader,type);
-        return (HashMap) data.get("pet");
+        return (HashMap) data;
     }
 }

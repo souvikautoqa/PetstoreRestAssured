@@ -3,7 +3,8 @@
 <suite name="PetStoreAPISuite" verbose="1" >
     <test name="PetStoreAPITest">
         <classes>
-            <class name="petstoretest.PetStoreTests"/>
+           <!-- <class name="petstoretest.PetStoreTests"/>-->
+            <class name="petstoretest.UserPurchasePetTest"/>
         </classes>
     </test>
 </suite>

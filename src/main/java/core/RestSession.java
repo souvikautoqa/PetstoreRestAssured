@@ -1,5 +1,6 @@
 package core;
 
+
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -24,7 +25,7 @@ public class RestSession {
     }
 
     // with Headers and Params
-    public Response sendRequest(APIMethod apiMethod, Map requestHeaders, Map requestParams) throws Exception {
+    public Response sendRequest(APIMethod apiMethod,Map requestParams, Map requestHeaders ) throws Exception {
         RequestSpecBuilder reqBuilder = new RequestSpecBuilder();
         reqBuilder.setContentType(ContentType.JSON);
         reqBuilder.addHeaders(requestHeaders);
@@ -33,9 +34,9 @@ public class RestSession {
     }
 
     // with Headers and Payload
-    public Response sendRequest(APIMethod apiMethod, Object payload,HashMap<String, String> headerList) throws Exception {
+    public Response sendRequest(APIMethod apiMethod, Object payload, Map requestHeaders) throws Exception {
         RequestSpecBuilder reqBuilder = new RequestSpecBuilder();
-        reqBuilder.addHeaders(headerList);
+        reqBuilder.addHeaders(requestHeaders);
         reqBuilder.setContentType(ContentType.JSON);
         reqBuilder.setBody(payload,ObjectMapperType.GSON);
         return sendSpec(apiMethod, reqBuilder);
